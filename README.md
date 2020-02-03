@@ -9,6 +9,7 @@ pytorch版SSDについて以下の改造を行ったFSSD-ResNeXT512のPascal VOC
 * prediction moduleの追加
 * deconvolutionの追加
 * FSSDの追加
+* basenetをResNeXTに変更
 
 ## インストール
 
