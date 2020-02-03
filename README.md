@@ -17,7 +17,7 @@ pytorch版SSDについて以下の改造を行ったFSSD-ResNeXT512のPascal VOC
     $ cd fssd-resnext-voc-coco
     $ mkdir weights
 
-以下のファイルをダウンロードしてweighsの下に配置します。
+以下のファイルをダウンロードしてweighsの下に配置します。*COCOの学習済みウェイトは収束前のものです(GPUの時間が取れなかった)
 
 [basenetのpretrainedウェイト](https://drive.google.com/open?id=1k0SXQbr4SR2-GYa0CXb-QRvBNFj9y7Ft)
 
