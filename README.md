@@ -27,58 +27,57 @@ https://drive.google.com/open?id=1U6-QU4chjUiq_vrtpwN5RZPG7W5fDMBW
 
 Pascal VOCとCOCOのデータを配置します。以下、配置例です(/mnt/ssd以下に配置した例)。Pascal VOCの方は入手したものを展開するだけなのでディレクトリだけ表示します。COCOの方は少し準備が必要なので以前の記事などをみてご用意ください。
 
-VOCdevkit/
-├── VOC2007
-│   ├── Annotations
-│   ├── ImageSets
-│   │   ├── Layout
-│   │   ├── Main
-│   │   └── Segmentation
-│   ├── JPEGImages
-│   ├── SegmentationClass
-│   ├── SegmentationObject
-│   ├── annotations_cache
-│   └── results
-└── VOC2012
-    ├── Annotations
-    ├── ImageSets
-    │   ├── Action
-    │   ├── Layout
-    │   ├── Main
-    │   └── Segmentation
-    ├── JPEGImages
-    ├── SegmentationClass
-    └── SegmentationObject
+    VOCdevkit/
+    ├── VOC2007
+    │   ├── Annotations
+    │   ├── ImageSets
+    │   │   ├── Layout
+    │   │   ├── Main
+    │   │   └── Segmentation
+    │   ├── JPEGImages
+    │   ├── SegmentationClass
+    │   ├── SegmentationObject
+    │   ├── annotations_cache
+    │   └── results
+    └── VOC2012
+        ├── Annotations
+        ├── ImageSets
+        │   ├── Action
+        │   ├── Layout
+        │   ├── Main
+        │   └── Segmentation
+        ├── JPEGImages
+        ├── SegmentationClass
+        └── SegmentationObject
 
-
-coco/
-├── annotations
-│   ├── captions_train2014.json
-│   ├── captions_val2014.json
-│   ├── instances_minival2014.json
-│   ├── instances_train2014.json
-│   ├── instances_trainval35k.json
-│   ├── instances_val2014.json
-│   ├── instances_valminusminival2014.json
-│   ├── person_keypoints_train2014.json
-│   └── person_keypoints_val2014.json
-└── images
-    ├── minival2014 -> /mnt/ssd/coco/images/trainval35k
-    ├── train2014
-    │   ├── COCO_train2014_000000000009.jpg
+    coco/
+    ├── annotations
+    │   ├── captions_train2014.json
+    │   ├── captions_val2014.json
+    │   ├── instances_minival2014.json
+    │   ├── instances_train2014.json
+    │   ├── instances_trainval35k.json
+    │   ├── instances_val2014.json
+    │   ├── instances_valminusminival2014.json
+    │   ├── person_keypoints_train2014.json
+    │   └── person_keypoints_val2014.json
+    └── images
+        ├── minival2014 -> /mnt/ssd/coco/images/trainval35k
+        ├── train2014
+        │   ├── COCO_train2014_000000000009.jpg
         ...
-    │   ├── COCO_train2014_000000581909.jpg
-    │   └── COCO_train2014_000000581921.jpg
-    ├── trainval35k
-    │   ├── COCO_train2014_000000000009.jpg
+        │   ├── COCO_train2014_000000581909.jpg
+        │   └── COCO_train2014_000000581921.jpg
+        ├── trainval35k
+        │   ├── COCO_train2014_000000000009.jpg
         ...
-    │   ├── COCO_val2014_000000581913.jpg
-    │   └── COCO_val2014_000000581929.jpg
-    └── val2014
-        ├── COCO_val2014_000000000042.jpg
-        ...
-        ├── COCO_val2014_000000581913.jpg
-        └── COCO_val2014_000000581929.jpg
+        │   ├── COCO_val2014_000000581913.jpg
+        │   └── COCO_val2014_000000581929.jpg
+        └── val2014
+            ├── COCO_val2014_000000000042.jpg
+            ...
+            ├── COCO_val2014_000000581913.jpg
+            └── COCO_val2014_000000581929.jpg
 
 Pascal VOC学習
 $ python train_fssd_resnext.py --dataset=VOC --dataset_root=/mnt/ssd/VOCdevkit/ --batch_size=10 --weight_prefix=VOC512_FSSD_RESNEXT_
