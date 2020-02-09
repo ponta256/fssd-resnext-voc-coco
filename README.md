@@ -115,7 +115,7 @@ Pascal VOCとCOCOのデータを配置します。以下、配置例です(/mnt/
 
 ### COCO評価
 
-    $ python eval_fssd_resnext_coco.py --trained_model=weights/COCO512_FSSD_RESNEXT_43.pth --dataset_root=/mnt/ssd/coco/
+    $ python eval_fssd_resnext_coco.py --trained_model=weights/COCO512_FSSD_RESNEXT_134.pth --dataset_root=/mnt/ssd/coco/
     
     ~~~~ Mean and per-category AP @ IoU=[0.50,0.95] ~~~~
     37.0
@@ -139,4 +139,4 @@ Pascal VOCとCOCOのデータを配置します。以下、配置例です(/mnt/
 
 ### COCO推論
 
-    $ python pred_fssd_resnext.py --dataset=COCO --trained_model=weights/COCO512_FSSD_RESNEXT_43.pth /mnt/ssd/coco/images/val2014/COCO_val2014_000000123360.jpg
+    $ python pred_fssd_resnext.py --dataset=COCO --trained_model=weights/COCO512_FSSD_RESNEXT_134.pth /mnt/ssd/coco/images/val2014/COCO_val2014_000000123360.jpg
