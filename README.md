@@ -17,13 +17,13 @@ pytorch版SSDについて以下の改造を行ったFSSD-ResNeXT512のPascal VOC
     $ cd fssd-resnext-voc-coco
     $ mkdir weights
 
-以下のファイルをダウンロードしてweighsの下に配置します。*COCOの学習済みウェイトは収束前のものです(GPUの時間が取れなかった)
+以下のファイルをダウンロードしてweighsの下に配置します。
 
 [basenetのpretrainedウェイト](https://drive.google.com/open?id=1k0SXQbr4SR2-GYa0CXb-QRvBNFj9y7Ft)
 
-[Pascal VOCで学習済みのウェイト (137epoch)](https://drive.google.com/open?id=1LILDY-tMxFSOOd3UdqrQHyQqs_ZO8ljp)
+[Pascal VOCで学習済みのウェイト (mAP=82.6@137epoch)](https://drive.google.com/open?id=1LILDY-tMxFSOOd3UdqrQHyQqs_ZO8ljp)
 
-[COCOで学習済みのウェイト (43epoch)](https://drive.google.com/open?id=1U6-QU4chjUiq_vrtpwN5RZPG7W5fDMBW)
+[COCOで学習済みのウェイト (AP=37.0@134epoch)](https://drive.google.com/open?id=1ErwmylDT286pjJEP2viy59ohO3voTK3V)
 
 Pascal VOCとCOCOのデータを配置します。以下、配置例です(/mnt/ssd以下に配置した例)。Pascal VOCの方は入手したものを展開するだけなのでディレクトリだけ表示します。COCOの方は少し準備が必要なので以前の記事などをみてご用意ください。
 
@@ -90,15 +90,53 @@ Pascal VOCとCOCOのデータを配置します。以下、配置例です(/mnt/
 ### Pascal VOC評価
 
     $ python eval_fssd_resnext_voc.py --trained_model=weights/VOC512_FSSD_RESNEXT_137.pth --voc_root=/mnt/ssd/VOCdevkit/
+    
+    AP for aeroplane = 0.8925
+    AP for bicycle = 0.8743
+    AP for bird = 0.8039
+    AP for boat = 0.7574
+    AP for bottle = 0.6961
+    AP for bus = 0.8932
+    AP for car = 0.8895
+    AP for cat = 0.8867
+    AP for chair = 0.6757
+    AP for cow = 0.8649
+    AP for diningtable = 0.7991
+    AP for dog = 0.8800
+    AP for horse = 0.8982
+    AP for motorbike = 0.8840
+    AP for person = 0.8488
+    AP for pottedplant = 0.5945
+    AP for sheep = 0.8726
+    AP for sofa = 0.8122
+    AP for train = 0.8818
+    AP for tvmonitor = 0.8098
+    Mean AP = 0.8258
 
-### COCO VOC評価
+### COCO評価
 
     $ python eval_fssd_resnext_coco.py --trained_model=weights/COCO512_FSSD_RESNEXT_43.pth --dataset_root=/mnt/ssd/coco/
+    
+    ~~~~ Mean and per-category AP @ IoU=[0.50,0.95] ~~~~
+    37.0
+    ~~~~ Summary metrics ~~~~
+    Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.370
+    Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.576
+    Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.395
+    Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.187
+    Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.426
+    Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.538
+    Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.311
+    Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.478
+    Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.497
+    Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.272
+    Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.561
+    Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.672
 
 ### Pascal VOC推論
 
     $ python pred_fssd_resnext.py --dataset=VOC --trained_model=weights/VOC512_FSSD_RESNEXT_137.pth /mnt/ssd/coco/images/val2014/COCO_val2014_000000123360.jpg
 
-### COCO VOC推論
+### COCO推論
 
     $ python pred_fssd_resnext.py --dataset=COCO --trained_model=weights/COCO512_FSSD_RESNEXT_43.pth /mnt/ssd/coco/images/val2014/COCO_val2014_000000123360.jpg
