@@ -10,6 +10,7 @@ pytorch版SSDについて以下の改造を行ったFSSD-ResNeXT512のPascal VOC
 * deconvolutionの追加
 * FSSDの追加
 * basenetをResNeXTに変更
+* nmsを高速版に変更
 
 ## インストール
 
