@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import torch
+import numpy as np
 
 
 def point_form(boxes):
@@ -169,6 +170,7 @@ def log_sum_exp(x):
     return torch.log(torch.sum(torch.exp(x-x_max), 1, keepdim=True)) + x_max
 
 
+'''
 # Original author: Francisco Massa:
 # https://github.com/fmassa/object-detection.torch
 # Ported to PyTorch by Max deGroot (02/01/2017)
@@ -237,3 +239,40 @@ def nms(boxes, scores, overlap=0.5, top_k=200):
         # keep only elements with an IoU <= overlap
         idx = idx[IoU.le(overlap)]
     return keep, count
+'''
+
+
+def nms(boxes, scores, nms_thresh=0.5, top_k=200):
+    boxes = boxes.cpu().numpy()
+    scores = scores.cpu().numpy()
+    keep = []
+    if len(boxes) == 0:
+        return keep
+    x1 = boxes[:, 0]
+    y1 = boxes[:, 1]
+    x2 = boxes[:, 2]
+    y2 = boxes[:, 3]
+    area = (x2-x1)*(y2-y1)
+    idx = np.argsort(scores, axis=0)   # sort in ascending order
+    idx = idx[-top_k:]  # indices of the top-k largest vals
+
+    count = 0
+    while len(idx) > 0:
+        last = len(idx)-1
+        i = idx[last]  # index of current largest val
+        keep.append(i)
+        count += 1
+        xx1 = np.maximum(x1[i], x1[idx[:last]])
+        yy1 = np.maximum(y1[i], y1[idx[:last]])
+        xx2 = np.minimum(x2[i], x2[idx[:last]])
+        yy2 = np.minimum(y2[i], y2[idx[:last]])
+
+        w = np.maximum(0, xx2-xx1)
+        h = np.maximum(0, yy2-yy1)
+
+        inter = w*h
+        iou = inter / (area[idx[:last]]+area[i]-inter)
+        idx = np.delete(idx, np.concatenate(([last], np.where(iou > nms_thresh)[0])))
+
+    return keep, count
+
